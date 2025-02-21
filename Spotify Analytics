@@ -1,0 +1,69 @@
+# For this project, I downloaded Spotify data from Kaggle.
+# Then I created a table to insert Spotify data into.
+# Finally, I performed analytics on the data using SQL. 
+
+# CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+song_key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+song_mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness decimal(8,7) NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL )
+
+
+#Then I inserted the Spotify Data .csv into the table.
+
+#Next, I explored the data using the following SQL. 
+
+# First I determined what are the top 10 songs with the highest energy
+
+SELECT artist_name, track_name, energy 
+FROM BIT_DB.Spotifydata
+ORDER BY energy desc
+LIMIT 10;
+
+
+#Then I determined what song is the most popular
+
+SELECT track_name
+FROM BIT_DB.Spotifydata
+ORDER BY popularity
+LIMIT 1;
+
+
+#Then I determined what the average danceability was by artist and by track
+
+SELECT  artist_name, track_name, AVG(danceability) as avg_danceability
+FROM BIT_DB.Spotifydata
+GROUP BY artist_name, track_name
+ORDER BY avg_danceability desc;
+
+
+#Then I determined what is the average danceability of the top 10 songs?
+
+SELECT artist_name, track_name, AVG(danceability) as avg_danceability
+FROM BIT_DB.Spotifydata
+GROUP BY artist_name, track_name
+ORDER BY popularity desc
+LIMIT 10;
+
+
+# Finally I determined what artist released the longest song
+
+SELECT artist_name
+FROM BIT_DB.Spotifydata
+ORDER BY duration_ms
+LIMIT 1;
+
